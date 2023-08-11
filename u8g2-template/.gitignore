@@ -1,4 +1,4 @@
-components/*
+components/u8g2
 build
 .devcontainer/
 .vscode/
