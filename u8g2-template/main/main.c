@@ -11,6 +11,9 @@
 #define PIN_SDA 33
 #define PIN_SCL 32
 
+unsigned int counter = 0;
+char text[20];  // Create a buffer to hold the text
+
 void app_main(void)
 {
     // initialize the u8g2 hal
@@ -36,13 +39,15 @@ void app_main(void)
 	// wake up the display
 	u8g2_SetPowerSave(&u8g2, 0);
 
+
     // loop
 	while(1) {		
 		// set font and write hello world
 		u8g2_ClearBuffer(&u8g2);
-		u8g2_SetFont(&u8g2, u8g2_font_timR14_tf);
-		u8g2_DrawStr(&u8g2, 2,17,"Hello World!");
+		snprintf(text, sizeof(text), "Hello World! %d", counter);
+		u8g2_DrawStr(&u8g2, 2,17,text);
 		u8g2_SendBuffer(&u8g2);
-		vTaskDelay(5000 / portTICK_PERIOD_MS);
+		counter++;
+		vTaskDelay(10 / portTICK_PERIOD_MS);
 	}
 }
